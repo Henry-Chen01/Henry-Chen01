@@ -1,0 +1,42 @@
+[base]
+name=CentOS-$releasever - Base - 10.14.5.29
+failovermethod=priority
+baseurl=http://10.14.5.29:8886/base/
+enable=1
+gpgcheck=0
+ 
+#released updates 
+[updates]
+name=CentOS-$releasever - Updates - 10.14.5.29
+failovermethod=priority
+baseurl=http://10.14.5.29:8886/updates/
+enable=1
+gpgcheck=0
+ 
+#additional packages that may be useful
+[extras]
+name=CentOS-$releasever - Extras - 10.14.5.29
+failovermethod=priority
+baseurl=http://10.14.5.29:8886/extras/
+enable=1
+gpgcheck=0
+ 
+#additional packages that may be useful
+[epel]
+name=CentOS-$releasever - Epel - 10.14.5.29
+failovermethod=priority
+baseurl=http://10.14.5.29:8886/epel/
+enable=1
+gpgcheck=0
+
+#additional packages that may be useful
+[docker-ce]
+name=CentOS-$releasever - Epel - 10.14.5.29
+failovermethod=priority
+baseurl=http://10.14.5.29:8886/docker-ce/
+enable=1
+gpgcheck=0
+
+
+#yum clean all 
+#yum makecache
