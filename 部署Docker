@@ -1,0 +1,48 @@
+001:部署Docker
+版本
+更改说明
+更新人
+日期
+1.0 文档创建 Henry 20220804
+ 
+1 CentOS
+1.1 添加docker源
+wget https://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo -O /etc/yum.repos.d/docker-ce.repo
+
+1.2 docker个性化设置
+mkdir -p /etc/docker
+​
+touch /etc/docker/daemon.json
+​
+cat << EOF >> /etc/docker/daemon.json
+{
+    "oom-score-adjust": -1000,
+    "log-driver": "json-file",
+    "log-opts": {
+    "max-size": "100m",
+    "max-file": "10"
+    },
+    "max-concurrent-downloads": 10,
+    "max-concurrent-uploads": 10,
+    "registry-mirrors": ["https://yefnfc9c.mirror.aliyuncs.com"],
+    "insecure-registries": ["0.0.0.0/0"],
+    "storage-driver": "overlay2",
+    "storage-opts": [
+    "overlay2.override_kernel_check=true"
+    ]
+}
+EOF
+
+1.3 安装docker
+
+# 查看可用版本并安装
+yum list docker-ce --showduplicates |sort -r |grep 19.03
+yum install docker-ce-19.03.15-3.el7   docker-ce-19.03.15-3.el7   -y
+​
+# 启动并设置开启启动
+sudo systemctl start docker
+sudo systemctl enable docker
+​
+# 锁定版本
+yum install yum-plugin-versionlock
+yum versionlock add docker-ce docker-ce-cli
